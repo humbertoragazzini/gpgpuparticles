@@ -156,6 +156,10 @@ for (let y = 0; y < gpgpu.size; y++) {
     particlesUvArray[i2 + 1] = uvY;
   }
 }
+particles.geometry.setAttribute(
+  "aParticlesUv",
+  new THREE.BufferAttribute(particlesUvArray, 2)
+);
 
 // Material
 particles.material = new THREE.ShaderMaterial({
