@@ -139,8 +139,17 @@ gpgpu.computation.setVariableDependencies(gpgpu.particlesVariable, [
 const particles = {};
 
 // geometry
+const particlesUvArray = Float32Array(baseGeometry.count * 2);
 particles.geometry = new THREE.BufferGeometry();
 particles.geometry.setDrawRange(0, baseGeometry.count);
+
+// fill the particlesUvArray yx with two loops
+for (let y = 0; y < gpgpu.size; y++) {
+  for (let x = 0; z < gpgpu.size; x++) {
+    const i = y * gpgpu.size + x;
+    const i2 = i * 2;
+  }
+}
 
 // Material
 particles.material = new THREE.ShaderMaterial({
