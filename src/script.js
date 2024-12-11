@@ -142,6 +142,18 @@ particles.material = new THREE.ShaderMaterial({
 // init gpgpu
 gpgpu.computation.init();
 
+gpgpu.debug = new THREE.Mesh(
+  new THREE.PlaneGeometry(3, 3),
+  new THREE.MeshBasicMaterial({
+    map: gpgpu.computation.getCurrentRenderTarget(gpgpu.particlesVariable)
+      .texture,
+  })
+);
+
+gpgpu.debug.position.x = 3;
+
+scene.add(gpgpu.debug);
+
 // Points
 particles.points = new THREE.Points(baseGeometry.instance, particles.material);
 scene.add(particles.points);
@@ -172,6 +184,9 @@ const tick = () => {
 
   // Update controls
   controls.update();
+
+  // Computing the texture of gpgpu
+  gpgpu.computation.compute();
 
   // Render normal scene
   renderer.render(scene, camera);
