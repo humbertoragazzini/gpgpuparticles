@@ -6,6 +6,7 @@ import { GPUComputationRenderer } from "three/examples/jsm/Addons.js";
 import GUI from "lil-gui";
 import particlesVertexShader from "./shaders/particles/vertex.glsl";
 import particlesFragmentShader from "./shaders/particles/fragment.glsl";
+import gpgpuParticlesShader from "./shaders/gpgpu/particles.glsl";
 
 /**
  * Base
@@ -107,7 +108,16 @@ gpgpu.computation = new GPUComputationRenderer(
 
 // Base particles
 const baseParticlesTexture = gpgpu.computation.createTexture();
-console.log(baseParticlesTexture);
+
+// Particles variables
+gpgpu.particlesVariable = gpgpu.computation.addVariable(
+  "uParticles",
+  gpgpuParticlesShader,
+  baseParticlesTexture
+);
+gpgpu.computation.setVariableDependencies(gpgpu.particlesVariable, [
+  gpgpu.particlesVariable,
+]);
 
 /**
  * Particles
@@ -128,6 +138,9 @@ particles.material = new THREE.ShaderMaterial({
     ),
   },
 });
+
+// init gpgpu
+gpgpu.computation.init();
 
 // Points
 particles.points = new THREE.Points(baseGeometry.instance, particles.material);
