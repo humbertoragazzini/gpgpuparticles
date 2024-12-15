@@ -254,7 +254,7 @@ gui
 gui
   .add(gpgpu.particlesVariable.material.uniforms.uFlowFieldFrecuency, "value")
   .min(0)
-  .max(10)
+  .max(1)
   .step(0.001)
   .name("uFlowFieldFrecuency");
 
