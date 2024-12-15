@@ -19,7 +19,10 @@ void main()
 
     // Point size
     float sizeIn = smoothstep(0.0,0.1,particle.a); 
-    gl_PointSize = uSize * aSizes * uResolution.y;
+    float sizeOut = 1.0 - smoothstep(0.7,1.0,particle.a);
+    float size = min(sizeIn, sizeOut);
+
+    gl_PointSize = size * uSize * aSizes * uResolution.y;
     gl_PointSize *= (1.0 / - viewPosition.z);
 
     // Varyings
