@@ -3,6 +3,8 @@ uniform float uTime;
 uniform sampler2D uBase;
 uniform float uDeltaTime;
 uniform float uFlowFieldInfluence;
+uniform float uFlowFieldStrengh;
+uniform float uFlowFieldFrecuency;
 
 void main(){
   vec2 uv = gl_FragCoord.xy/resolution.xy;
@@ -27,7 +29,7 @@ void main(){
     );
 
     flowfield = normalize(flowfield);
-    particle.xyz += flowfield.xyz * uDeltaTime * strengh * 0.3;
+    particle.xyz += flowfield.xyz * uDeltaTime * strengh * uFlowFieldStrengh;
 
     // decay
     particle.a += uDeltaTime * 0.3;
