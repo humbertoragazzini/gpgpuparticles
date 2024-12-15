@@ -14,6 +14,9 @@ void main(){
     particle.a = mod(particle.a, 1.0);
     particle.xyz = base.xyz;
   }else{
+    // Strengh
+    float strengh = smoothstep(0.0,1.0,simplexNoise4d(vec4(base.xyz * 0.2, time + 1.0 )));
+
     // flow field
     vec3 flowfield = vec3(
       simplexNoise4d(vec4(particle.xyz + 0.0, time)),
@@ -22,7 +25,7 @@ void main(){
     );
 
     flowfield = normalize(flowfield);
-    particle.xyz += flowfield.xyz * uDeltaTime * 0.3;
+    particle.xyz += flowfield.xyz * uDeltaTime * strengh * 0.3;
 
     // decay
     particle.a += uDeltaTime * 0.3;
