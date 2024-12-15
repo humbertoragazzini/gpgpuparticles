@@ -2,6 +2,7 @@
 uniform float uTime;
 uniform sampler2D uBase;
 uniform float uDeltaTime;
+uniform float uFlowFieldInfluence;
 
 void main(){
   vec2 uv = gl_FragCoord.xy/resolution.xy;
@@ -15,7 +16,8 @@ void main(){
     particle.xyz = base.xyz;
   }else{
     // Strengh
-    float strengh = smoothstep(0.0,1.0,simplexNoise4d(vec4(base.xyz * 0.2, time + 1.0 )));
+    float influence = (uFlowFieldInfluence - 0.5) * -2.0;
+    float strengh = smoothstep(influence,1.0,simplexNoise4d(vec4(base.xyz * 0.2, time + 1.0 )));
 
     // flow field
     vec3 flowfield = vec3(
