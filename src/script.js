@@ -23,7 +23,7 @@ const scene = new THREE.Scene();
 
 // Loaders
 const dracoLoader = new DRACOLoader();
-dracoLoader.setDecoderPath("/draco/");
+dracoLoader.setDecoderPath("draco/");
 
 const gltfLoader = new GLTFLoader();
 gltfLoader.setDRACOLoader(dracoLoader);
@@ -91,7 +91,7 @@ renderer.setClearColor(debugObject.clearColor);
 /**
  *  Load model
  */
-const gltf = await gltfLoader.loadAsync("./model.glb");
+const gltf = await gltfLoader.loadAsync("model.glb");
 
 /**
  *  Base geometry
